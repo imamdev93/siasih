@@ -13,4 +13,16 @@ class Siswa extends Authenticatable
 
     protected $table = 'siswa';
     public $guarded = [];
+
+    public function kelas()
+    {
+        return $this->belongsTo(Kelas::class);
+    }
+
+    public function setPasswordAttribute($password)
+    {
+        if (!empty($password)) {
+            $this->attributes['password'] = bcrypt($password);
+        }
+    }
 }

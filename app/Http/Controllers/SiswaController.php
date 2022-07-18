@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SiswaStoreRequest;
+use App\Http\Requests\SiswaUpdateRequest;
+use App\Models\Kelas;
 use App\Models\Siswa;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class SiswaController extends Controller
 {
@@ -14,7 +18,8 @@ class SiswaController extends Controller
      */
     public function index()
     {
-        //
+        $data['siswa'] = Siswa::get();
+        return view('siswa.index', $data);
     }
 
     /**
@@ -24,7 +29,8 @@ class SiswaController extends Controller
      */
     public function create()
     {
-        //
+        $kelas = Kelas::get();
+        return view("siswa.tambah", compact('kelas'));
     }
 
     /**
@@ -33,9 +39,17 @@ class SiswaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(SiswaStoreRequest $request)
     {
-        //
+        DB::beginTransaction();
+        try {
+            Siswa::create($request->validated());
+            DB::commit();
+            return redirect()->route('siswa.index')->with('success', 'Berhasil menyimpan data');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->back()->with('error', 'Gagal menyimpan data');
+        }
     }
 
     /**
@@ -46,7 +60,7 @@ class SiswaController extends Controller
      */
     public function show(Siswa $siswa)
     {
-        //
+        return view("siswa.detail", compact('siswa'));
     }
 
     /**
@@ -57,7 +71,8 @@ class SiswaController extends Controller
      */
     public function edit(Siswa $siswa)
     {
-        //
+        $kelas = Kelas::get();
+        return view("siswa.edit", compact('kelas', 'siswa'));
     }
 
     /**
@@ -67,9 +82,17 @@ class SiswaController extends Controller
      * @param  \App\Models\Siswa  $siswa
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Siswa $siswa)
+    public function update(SiswaUpdateRequest $request, Siswa $siswa)
     {
-        //
+        DB::beginTransaction();
+        try {
+            $siswa->update($request->validated());
+            DB::commit();
+            return redirect()->route('siswa.index')->with('success', 'Berhasil merubah data');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->back()->with('error', 'Gagal merubah data');
+        }
     }
 
     /**
