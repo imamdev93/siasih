@@ -1,10 +1,14 @@
 <?php
 
+use App\Http\Controllers\AbsensiController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BerandaController;
 use App\Http\Controllers\BiodataController;
 use App\Http\Controllers\GuruController;
+use App\Http\Controllers\JadwalMengajarController;
 use App\Http\Controllers\KurikulumController;
+use App\Http\Controllers\NilaiController;
+use App\Http\Controllers\SiswaController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,7 +23,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('login');
 });
 
 Route::get('login', [AuthController::class, 'login'])->name('login');
@@ -28,11 +32,15 @@ Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::get('beranda', BerandaController::class)->name('beranda')->middleware(['auth:admin,guru,siswa']);
 
-Route::prefix('informasi')->group(function() {
+Route::prefix('informasi')->group(function () {
     Route::resource('kurikulum', KurikulumController::class)->middleware(['auth:admin,guru']);
+    Route::get('absensi', [AbsensiController::class, 'index'])->middleware(['auth:siswa']);
+    Route::get('nilai', [NilaiController::class, 'index'])->middleware(['auth:siswa']);
+    Route::get('jadwal-mengajar', [JadwalMengajarController::class, 'index'])->middleware(['auth:admin,guru,siswa']);
+    Route::get('jadwal-pelajaran', [JadwalMengajarController::class, 'index'])->middleware(['auth:admin,siswa']);
 });
 
-Route::prefix('pengaturan')->group(function() {
+Route::prefix('pengaturan')->group(function () {
     Route::get('biodata', [BiodataController::class, 'show'])->middleware(['auth:admin,guru,siswa'])->name('biodata.show');
     Route::post('biodata', [BiodataController::class, 'update'])->middleware(['auth:admin,guru,siswa'])->name('biodata.update');
 
@@ -40,6 +48,9 @@ Route::prefix('pengaturan')->group(function() {
     Route::post('ubah-password', [AuthController::class, 'update'])->middleware(['auth:admin,guru,siswa'])->name('password.update');
 });
 
-Route::prefix('layanan')->group(function() {
+Route::prefix('layanan')->group(function () {
     Route::resource('guru', GuruController::class)->middleware(['auth:admin']);
+    Route::resource('siswa', SiswaController::class)->middleware(['auth:admin']);
+    Route::resource('absensi', AbsensiController::class)->middleware(['auth:admin,guru']);
+    Route::resource('nilai', NilaiController::class)->middleware(['auth:admin,guru']);
 });
