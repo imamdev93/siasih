@@ -14,6 +14,6 @@ class Kelas extends Model
 
     public function mapel()
     {
-        return $this->belongsToMany(MataPelajaran::class, 'kelas_mapel');
+        return $this->belongsToMany(MataPelajaran::class, 'kelas_mapel')->withPivot('hari');
     }
 }

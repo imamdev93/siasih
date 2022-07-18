@@ -14,6 +14,6 @@ class MataPelajaran extends Model
 
     public function kelas()
     {
-        return $this->belongsToMany(Kelas::class, 'kelas_mapel');
+        return $this->belongsToMany(Kelas::class, 'kelas_mapel')->withPivot('hari');
     }
 }

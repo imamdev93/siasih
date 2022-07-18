@@ -17,6 +17,7 @@ class MapelSeeder extends Seeder
     public function run()
     {
         $mapel = ['PAI', 'PPKN', 'Bahasa Indonesa', 'IPA', 'IPS', 'Matematika', 'Seni Budaya', 'Penjaskes'];
+        $hari = ['senin', 'selasa', 'rabu', 'kamis', 'jumat', 'sabtu'];
 
         foreach ($mapel as $value) {
             DB::table('mata_pelajaran')->insert([
@@ -28,7 +29,8 @@ class MapelSeeder extends Seeder
         $kelas = Kelas::get();
 
         foreach ($kelas as $value) {
-            $value->mapel()->attach($mapels);
+            $random = array_rand($hari, 1);
+            $value->mapel()->attach($mapels, ['hari' => $hari[$random]]);
         }
     }
 }
