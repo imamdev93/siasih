@@ -61,7 +61,7 @@
 <script>
     $(document).ready(function(){
         $('.datatable-example').DataTable({
-            pageLength: 25,
+            pageLength: 10,
         });
 
     });
