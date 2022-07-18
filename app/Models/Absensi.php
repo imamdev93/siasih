@@ -8,4 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Absensi extends Model
 {
     use HasFactory;
+
+    protected $table = 'absensi';
+    public $guarded = [];
+
+    public function siswa()
+    {
+        return $this->belongsTo(Siswa::class);
+    }
 }
