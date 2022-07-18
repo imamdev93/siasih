@@ -20,17 +20,17 @@
             <ul class="nav nav-second-level collapse">
                 @auth('admin')
                     <li class="{{ request()->is('informasi/kurikulum*') ? 'active' : ''}}"><a href="/informasi/kurikulum">Kurikulum</a></li>
-                    <li class="{{ request()->is('informasi/jadwal-mengajar*') ? 'active' : ''}}"><a href="#">Jadwal Mengajar</a></li>
-                    <li class="{{ request()->is('informasi/jadwal-pelajaran*') ? 'active' : ''}}"><a href="#">Jadwal Pelajaran</a></li>
+                    <li class="{{ request()->is('informasi/jadwal-mengajar*') ? 'active' : ''}}"><a href="/informasi/jadwal-mengajar">Jadwal Mengajar</a></li>
+                    <li class="{{ request()->is('informasi/jadwal-pelajaran*') ? 'active' : ''}}"><a href="/informasi/jadwal-pelajaran">Jadwal Pelajaran</a></li>
                 @endauth
                 @auth('guru')
                     <li class="{{ request()->is('informasi/kurikulum*') ? 'active' : ''}}"><a href="/informasi/kurikulum">Kurikulum</a></li>
-                    <li class="{{ request()->is('informasi/jadwal-mengajar*') ? 'active' : ''}}"><a href="#">Jadwal Mengajar</a></li>
+                    <li class="{{ request()->is('informasi/jadwal-mengajar*') ? 'active' : ''}}"><a href="/informasi/jadwal-mengajar">Jadwal Mengajar</a></li>
                 @endauth
                 @auth('siswa')
-                    <li class="{{ request()->is('informasi/absensi-siswa*') ? 'active' : ''}}"><a href="#">Absensi Siswa</a></li>
-                    <li class="{{ request()->is('informasi/nilai-siswa*') ? 'active' : ''}}"><a href="#">Nilai Siswa</a></li>
-                    <li class="{{ request()->is('informasi/jadwal-pelajaran*') ? 'active' : ''}}"><a href="#">Jadwal Pelajaran</a></li>
+                    <li class="{{ request()->is('informasi/absensi*') ? 'active' : ''}}"><a href="/informasi/absensi">Absensi Siswa</a></li>
+                    <li class="{{ request()->is('informasi/nilai*') ? 'active' : ''}}"><a href="/informasi/nilai">Nilai Siswa</a></li>
+                    <li class="{{ request()->is('informasi/jadwal-pelajaran*') ? 'active' : ''}}"><a href="/informasi/jadwal-pelajaran">Jadwal Pelajaran</a></li>
                 @endauth
             </ul>
         </li>
@@ -46,13 +46,13 @@
             <ul class="nav nav-second-level collapse">
                 @auth('admin')
                     <li class="{{ request()->is('layanan/guru*') ? 'active' : ''}}"><a href="/layanan/guru">Data Guru</a></li>
-                    <li class="{{ request()->is('layanan/siswa*') ? 'active' : ''}}"><a href="#">Data Siswa</a></li>
-                    <li class="{{ request()->is('layanan/absensi-siswa*') ? 'active' : ''}}"><a href="#">Absensi Siswa</a></li>
-                    <li class="{{ request()->is('layanan/nilai-siswa*') ? 'active' : ''}}"><a href="#">Nilai Siswa</a></li>
+                    <li class="{{ request()->is('layanan/siswa*') ? 'active' : ''}}"><a href="/layanan/siswa">Data Siswa</a></li>
+                    <li class="{{ request()->is('layanan/absensi*') ? 'active' : ''}}"><a href="/layanan/absensi">Absensi Siswa</a></li>
+                    <li class="{{ request()->is('layanan/nilai*') ? 'active' : ''}}"><a href="/layanan/nilai">Nilai Siswa</a></li>
                 @endauth
                 @auth('guru')
-                    <li class="{{ request()->is('layanan/absensi-siswa*') ? 'active' : ''}}"><a href="#">Absensi Siswa</a></li>
-                    <li class="{{ request()->is('layanan/nilai-siswa*') ? 'active' : ''}}"><a href="#">Nilai Siswa</a></li>
+                    <li class="{{ request()->is('layanan/absensi*') ? 'active' : ''}}"><a href="/layanan/absensi">Absensi Siswa</a></li>
+                    <li class="{{ request()->is('layanan/nilai*') ? 'active' : ''}}"><a href="/layanan/nilai">Nilai Siswa</a></li>
                 @endauth
                 @auth('siswa')
                     <li class="{{ request()->is('layanan/pendaftaran*') ? 'active' : ''}}"><a href="#">Pendaftaran</a></li>
