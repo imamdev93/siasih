@@ -36,7 +36,10 @@ Route::prefix('informasi')->group(function () {
     Route::resource('kurikulum', KurikulumController::class)->middleware(['auth:admin,guru']);
     Route::get('absensi', [AbsensiController::class, 'index'])->middleware(['auth:siswa']);
     Route::get('nilai', [NilaiController::class, 'index'])->middleware(['auth:siswa']);
-    Route::get('jadwal-mengajar', [JadwalMengajarController::class, 'index'])->middleware(['auth:admin,guru,siswa']);
+    Route::get('jadwal-mengajar', [JadwalMengajarController::class, 'index'])->middleware(['auth:admin,guru,siswa'])->name('jadwal.index');
+    Route::get('jadwal-mengajar/{id}', [JadwalMengajarController::class, 'edit'])->middleware(['auth:admin'])->name('jadwal.edit');
+    Route::post('jadwal-mengajar/{id}', [JadwalMengajarController::class, 'update'])->middleware(['auth:admin'])->name('jadwal.update');
+    Route::get('jadwal-mengajar/{id}/detail', [JadwalMengajarController::class, 'show'])->middleware(['auth:admin'])->name('jadwal.show');
     Route::get('jadwal-pelajaran', [JadwalMengajarController::class, 'index'])->middleware(['auth:admin,siswa']);
 });
 

@@ -36,8 +36,8 @@
                             <td>{{ $data->hari }}</td>
                             <td>
                                 @if (session()->get('role') == 'admin')
-                                <a class="btn btn-sm btn-secondary" href="#"><i class="fa fa-eye"></i></a>
-                                <a class="btn btn-sm btn-primary" href="#"><i class="fa fa-edit"></i></a>
+                                <a class="btn btn-sm btn-secondary" href="{{ route('jadwal.show', $data->id) }}"><i class="fa fa-eye"></i></a>
+                                <a class="btn btn-sm btn-primary" href="{{ route('jadwal.edit', $data->id) }}"><i class="fa fa-edit"></i></a>
                                 @endif
                             </td>
                         </tr>
