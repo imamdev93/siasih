@@ -6,6 +6,7 @@ use App\Http\Controllers\BerandaController;
 use App\Http\Controllers\BiodataController;
 use App\Http\Controllers\GuruController;
 use App\Http\Controllers\JadwalMengajarController;
+use App\Http\Controllers\KonsultasiController;
 use App\Http\Controllers\KurikulumController;
 use App\Http\Controllers\NilaiController;
 use App\Http\Controllers\SiswaController;
@@ -56,4 +57,9 @@ Route::prefix('layanan')->group(function () {
     Route::resource('siswa', SiswaController::class)->middleware(['auth:admin']);
     Route::resource('absensi', AbsensiController::class)->middleware(['auth:admin,guru']);
     Route::resource('nilai', NilaiController::class)->middleware(['auth:admin,guru']);
+    Route::get('konsultasi', [KonsultasiController::class, 'index'])->middleware(['auth:guru,siswa'])->name('konsultasi.index');
+    Route::get('konsultasi/tambah', [KonsultasiController::class, 'create'])->middleware(['auth:guru,siswa'])->name('konsultasi.create');
+    Route::post('konsultasi/tambah', [KonsultasiController::class, 'store'])->middleware(['auth:guru,siswa'])->name('konsultasi.store');
+    Route::get('konsultasi/{id}/feedback', [KonsultasiController::class, 'feedback'])->middleware(['auth:guru,siswa'])->name('konsultasi.feedback');
+    Route::post('konsultasi/{id}/feedback', [KonsultasiController::class, 'storeFeedback'])->middleware(['auth:guru,siswa'])->name('konsultasi.storeFeedback');
 });
