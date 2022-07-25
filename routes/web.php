@@ -9,6 +9,7 @@ use App\Http\Controllers\JadwalMengajarController;
 use App\Http\Controllers\KonsultasiController;
 use App\Http\Controllers\KurikulumController;
 use App\Http\Controllers\NilaiController;
+use App\Http\Controllers\RaportController;
 use App\Http\Controllers\SiswaController;
 use Illuminate\Support\Facades\Route;
 
@@ -62,4 +63,5 @@ Route::prefix('layanan')->group(function () {
     Route::post('konsultasi/tambah', [KonsultasiController::class, 'store'])->middleware(['auth:guru,siswa'])->name('konsultasi.store');
     Route::get('konsultasi/{id}/feedback', [KonsultasiController::class, 'feedback'])->middleware(['auth:guru,siswa'])->name('konsultasi.feedback');
     Route::post('konsultasi/{id}/feedback', [KonsultasiController::class, 'storeFeedback'])->middleware(['auth:guru,siswa'])->name('konsultasi.storeFeedback');
+    Route::get('raport', [RaportController::class, 'index'])->middleware(['auth:admin,guru,siswa'])->name('raport.index');
 });

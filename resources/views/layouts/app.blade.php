@@ -24,6 +24,7 @@
     <link href="{{asset('css/plugins/select2/select2.min.css')}}" rel="stylesheet">
     <link href="{{asset('css/plugins/select2/select2-bootstrap4.min.css')}}" rel="stylesheet">
     @stack('styles')
+    @livewireStyles
 </head>
 
 <body>
@@ -83,6 +84,7 @@
 
     <script src="{{asset('js/plugins/select2/select2.full.min.js')}}"></script>
     @stack('scripts')
+    @livewireScripts
     <script>
         $(document).ready(function () {
 
