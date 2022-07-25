@@ -72,7 +72,7 @@ class RaportIndex extends Component
         $pdf = PDF::loadView('template.raport', $data)->setPaper('folio', 'potrait')->output();
         return response()->streamDownload(
             fn () => print($pdf),
-            "raport_" . date('Ymd') . ".pdf"
+            "raport_" . $data['siswa']->nama . '_' . date('Ymd') . ".pdf"
         );
     }
 
