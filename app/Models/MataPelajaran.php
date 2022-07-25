@@ -16,4 +16,9 @@ class MataPelajaran extends Model
     {
         return $this->belongsToMany(Kelas::class, 'kelas_mapel')->withPivot('hari');
     }
+
+    public function nilai()
+    {
+        return $this->hasMany(Nilai::class, 'mata_pelajaran_id');
+    }
 }

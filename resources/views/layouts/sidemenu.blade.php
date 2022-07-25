@@ -49,14 +49,16 @@
                     <li class="{{ request()->is('layanan/siswa*') ? 'active' : ''}}"><a href="/layanan/siswa">Data Siswa</a></li>
                     <li class="{{ request()->is('layanan/absensi*') ? 'active' : ''}}"><a href="/layanan/absensi">Absensi Siswa</a></li>
                     <li class="{{ request()->is('layanan/nilai*') ? 'active' : ''}}"><a href="/layanan/nilai">Nilai Siswa</a></li>
+                    <li class="{{ request()->is('layanan/raport*') ? 'active' : ''}}"><a href="/layanan/raport">Raport</a></li>
                 @endauth
                 @auth('guru')
                     <li class="{{ request()->is('layanan/absensi*') ? 'active' : ''}}"><a href="/layanan/absensi">Absensi Siswa</a></li>
                     <li class="{{ request()->is('layanan/nilai*') ? 'active' : ''}}"><a href="/layanan/nilai">Nilai Siswa</a></li>
                     <li class="{{ request()->is('layanan/konsultasi*') ? 'active' : ''}}"><a href="/layanan/konsultasi">konsultasi Siswa</a></li>
-                @endauth
+                    <li class="{{ request()->is('layanan/raport*') ? 'active' : ''}}"><a href="/layanan/raport">Raport</a></li>
+                    @endauth
                 @auth('siswa')
-                    <li class="{{ request()->is('layanan/pendaftaran*') ? 'active' : ''}}"><a href="#">Pendaftaran</a></li>
+                    <li class="{{ request()->is('layanan/raport*') ? 'active' : ''}}"><a href="/layanan/raport">Raport</a></li>
                     <li class="{{ request()->is('layanan/konsultasi*') ? 'active' : ''}}"><a href="/layanan/konsultasi">konsultasi</a></li>
                 @endauth
             </ul>
