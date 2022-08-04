@@ -24,6 +24,39 @@ class JadwalMengajarController extends Controller
         return view('jadwal.index', compact('jadwal'));
     }
 
+    public function create()
+    {
+        $query = Kelas::query();
+        $mapel = MataPelajaran::all();
+
+        if (session()->get('role') != 'admin') {
+            $query->where('id', auth()->user()->kelas_id);
+        }
+
+        $kelas = $query->get();
+
+        return view('jadwal.tambah', compact('kelas', 'mapel'));
+    }
+
+    public function store(JadwalRequest $request)
+    {
+        DB::beginTransaction();
+        try {
+            KelasMapel::updateOrCreate(
+                [
+                    'mata_pelajaran_id' => $request->mata_pelajaran_id,
+                    'kelas_id' => $request->kelas_id
+                ],
+                $request->validated()
+            );
+            DB::commit();
+            return redirect()->route('jadwal.index')->with('success', 'Berhasil menyimpan data');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->back()->with('error', 'Gagal menyimpan data');
+        }
+    }
+
     public function show($id)
     {
         $jadwal = KelasMapel::find($id);

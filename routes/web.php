@@ -39,6 +39,8 @@ Route::prefix('informasi')->group(function () {
     Route::get('absensi', [AbsensiController::class, 'index'])->middleware(['auth:siswa']);
     Route::get('nilai', [NilaiController::class, 'index'])->middleware(['auth:siswa']);
     Route::get('jadwal-mengajar', [JadwalMengajarController::class, 'index'])->middleware(['auth:admin,guru,siswa'])->name('jadwal.index');
+    Route::get('jadwal-mengajar/tambah', [JadwalMengajarController::class, 'create'])->middleware(['auth:admin,guru,siswa'])->name('jadwal.create');
+    Route::post('jadwal-mengajar/tambah', [JadwalMengajarController::class, 'store'])->middleware(['auth:admin,guru,siswa'])->name('jadwal.store');
     Route::get('jadwal-mengajar/{id}', [JadwalMengajarController::class, 'edit'])->middleware(['auth:admin'])->name('jadwal.edit');
     Route::post('jadwal-mengajar/{id}', [JadwalMengajarController::class, 'update'])->middleware(['auth:admin'])->name('jadwal.update');
     Route::get('jadwal-mengajar/{id}/detail', [JadwalMengajarController::class, 'show'])->middleware(['auth:admin'])->name('jadwal.show');

@@ -9,7 +9,11 @@
         <div class="ibox ">
             <div class="ibox-title">
                 <h5>Daftar Jadwal {{ session()->get('role') == 'siswa' ? 'Pelajaran' : 'Mengajar' }}</h5>
-               
+                @if (session()->get('role') != 'siswa')
+                <div class="ibox-tools">
+                    <a href="{{ route('jadwal.create') }}" class="btn btn-primary btn-sm">Tambah</a>
+                </div>
+                @endif
             </div>
             <div class="ibox-content">
                 <div class="table-responsive">
