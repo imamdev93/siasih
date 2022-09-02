@@ -15,14 +15,15 @@
         <li class="{{ Request::routeIs('beranda') ? 'active' : '' }}">
             <a href="{{ route('beranda') }}"><span class="nav-label">Beranda</span></a>
         </li>
+        @if (!auth()->user()->is_kepsek)
         <li class="{{ request()->is('informasi/*') ? 'active' : ''}}">
             <a href="#"><span class="nav-label">Informasi</span></a>
             <ul class="nav nav-second-level collapse">
-                @auth('admin')
+                @if(session()->get('role') == 'admin' && !auth()->user()->is_kepsek)
                     <li class="{{ request()->is('informasi/kurikulum*') ? 'active' : ''}}"><a href="/informasi/kurikulum">Kurikulum</a></li>
                     <li class="{{ request()->is('informasi/jadwal-mengajar*') ? 'active' : ''}}"><a href="/informasi/jadwal-mengajar">Jadwal Mengajar</a></li>
                     <li class="{{ request()->is('informasi/jadwal-pelajaran*') ? 'active' : ''}}"><a href="/informasi/jadwal-pelajaran">Jadwal Pelajaran</a></li>
-                @endauth
+                @endif
                 @auth('guru')
                     <li class="{{ request()->is('informasi/kurikulum*') ? 'active' : ''}}"><a href="/informasi/kurikulum">Kurikulum</a></li>
                     <li class="{{ request()->is('informasi/jadwal-mengajar*') ? 'active' : ''}}"><a href="/informasi/jadwal-mengajar">Jadwal Mengajar</a></li>
@@ -34,6 +35,7 @@
                 @endauth
             </ul>
         </li>
+        @endif
         <li class="{{ request()->is('pengaturan/*') ? 'active' : ''}}">
             <a href="#"><span class="nav-label">Pengaturan</span></a>
             <ul class="nav nav-second-level collapse">
@@ -42,15 +44,25 @@
             </ul>
         </li>
         <li class="{{ request()->is('layanan/*') ? 'active' : ''}}">
-            <a href="#"><span class="nav-label">Layanan {{ ucwords(session()->get('role')) }}</span></a>
+            <a href="#"><span class="nav-label">Layanan 
+                @if (session()->get('role') == 'admin' && auth()->user()->is_kepsek)
+                    Kepala Sekolah
+                @else
+                {{ ucwords(session()->get('role')) }}
+                @endif
+            </span></a>
             <ul class="nav nav-second-level collapse">
-                @auth('admin')
+                @if(session()->get('role') == 'admin' && auth()->user()->is_kepsek)
+                    <li class="{{ request()->is('layanan/absensi*') ? 'active' : ''}}"><a href="/layanan/absensi">Absensi Siswa</a></li>
+                    <li class="{{ request()->is('layanan/raport*') ? 'active' : ''}}"><a href="/layanan/raport">Raport Siswa</a></li>
+                @endif
+                @if(session()->get('role') == 'admin' && !auth()->user()->is_kepsek)
                     <li class="{{ request()->is('layanan/guru*') ? 'active' : ''}}"><a href="/layanan/guru">Data Guru</a></li>
                     <li class="{{ request()->is('layanan/siswa*') ? 'active' : ''}}"><a href="/layanan/siswa">Data Siswa</a></li>
                     <li class="{{ request()->is('layanan/absensi*') ? 'active' : ''}}"><a href="/layanan/absensi">Absensi Siswa</a></li>
                     <li class="{{ request()->is('layanan/nilai*') ? 'active' : ''}}"><a href="/layanan/nilai">Nilai Siswa</a></li>
                     <li class="{{ request()->is('layanan/raport*') ? 'active' : ''}}"><a href="/layanan/raport">Raport</a></li>
-                @endauth
+                @endif
                 @auth('guru')
                     <li class="{{ request()->is('layanan/absensi*') ? 'active' : ''}}"><a href="/layanan/absensi">Absensi Siswa</a></li>
                     <li class="{{ request()->is('layanan/nilai*') ? 'active' : ''}}"><a href="/layanan/nilai">Nilai Siswa</a></li>

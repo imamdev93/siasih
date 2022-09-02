@@ -34,6 +34,7 @@
                 <div class="form-group">
                     <select name="role" id="" class="form-control" required="">
                         <option value="">Pilih Role</option>
+                        <option value="admin">Kepala Sekolah</option>
                         <option value="admin">Admin</option>
                         <option value="guru">Guru</option>
                         <option value="siswa">Siswa</option>

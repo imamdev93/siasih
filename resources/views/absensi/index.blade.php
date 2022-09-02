@@ -9,7 +9,7 @@
         <div class="ibox ">
             <div class="ibox-title">
                 <h5>Daftar Absensi Siswa</h5>
-                @if (session()->get('role') != 'siswa')
+                @if (session()->get('role') != 'siswa' && !auth()->user()->is_kepsek)
                     <div class="ibox-tools">
                         <a href="{{ route('absensi.create') }}" class="btn btn-primary btn-sm">Tambah</a>
                     </div>

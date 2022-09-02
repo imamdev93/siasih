@@ -18,9 +18,7 @@ class AbsensiController extends Controller
     {
         $query = Absensi::query();
 
-        if (session()->get('role') == 'siswa') {
-            $query->where('siswa_id', auth()->user()->id);
-        } elseif (session()->get('role') == 'guru') {
+        if (session()->get('role') == 'siswa' || session()->get('role') == 'guru') {
             $query->whereHas('siswa', function ($query) {
                 $query->where('kelas_id', auth()->user()->kelas_id);
             });
