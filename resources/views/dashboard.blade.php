@@ -5,7 +5,7 @@
     <div class="col-md-12">
         <div class="alert alert-success">
             <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
-            Anda Login sebagai <b>{{ session()->get('role') }}</b>
+            Anda Login sebagai <b>{{ session()->get('role') == 'admin' && auth()->user()->is_kepsek ? 'Kepala Sekolah' : session()->get('role')  }}</b>
 
         </div>
         <h2>Beranda</h2>
