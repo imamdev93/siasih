@@ -25,7 +25,8 @@ class AdminSeeder extends Seeder
             'nama' => 'Kepala Sekolah',
             'username' => 'kepala_sekolah',
             'email' => 'kepsek@example.com',
-            'password' => bcrypt('kepsek123')
+            'password' => bcrypt('kepsek123'),
+            'is_kepsek' => true
         ]);
     }
 }
