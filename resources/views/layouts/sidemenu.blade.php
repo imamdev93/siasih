@@ -59,9 +59,6 @@
                 @if(session()->get('role') == 'admin' && !auth()->user()->is_kepsek)
                     <li class="{{ request()->is('layanan/guru*') ? 'active' : ''}}"><a href="/layanan/guru">Data Guru</a></li>
                     <li class="{{ request()->is('layanan/siswa*') ? 'active' : ''}}"><a href="/layanan/siswa">Data Siswa</a></li>
-                    <li class="{{ request()->is('layanan/absensi*') ? 'active' : ''}}"><a href="/layanan/absensi">Absensi Siswa</a></li>
-                    <li class="{{ request()->is('layanan/nilai*') ? 'active' : ''}}"><a href="/layanan/nilai">Nilai Siswa</a></li>
-                    <li class="{{ request()->is('layanan/raport*') ? 'active' : ''}}"><a href="/layanan/raport">Raport</a></li>
                 @endif
                 @auth('guru')
                     <li class="{{ request()->is('layanan/absensi*') ? 'active' : ''}}"><a href="/layanan/absensi">Absensi Siswa</a></li>
