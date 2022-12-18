@@ -15,7 +15,7 @@ class AuthController extends Controller
     public function login()
     {
         if (Auth::guard(session()->get('role'))->check()) {
-            return redirect()->back();
+            return redirect()->route('beranda');
         }
         return view('login');
     }
@@ -23,7 +23,7 @@ class AuthController extends Controller
     public function doLogin(LoginRequest $request)
     {
         try {
-            if (! Auth::guard($request->role)->attempt($request->except('role', '_token'))) {
+            if (!Auth::guard($request->role)->attempt($request->except('role', '_token'))) {
                 return redirect()->back()->with('error', 'Username atau password salah');
             }
             session()->put('role', $request->role);
@@ -49,7 +49,7 @@ class AuthController extends Controller
     {
         $user = $this->getUser();
 
-        if (! Hash::check($request->old_password, $user->password)) { 
+        if (!Hash::check($request->old_password, $user->password)) {
             return redirect()->back()->with('error', 'Password lama tidak sama');
         }
 

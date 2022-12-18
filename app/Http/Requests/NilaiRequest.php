@@ -29,9 +29,9 @@ class NilaiRequest extends FormRequest
         return [
             'siswa_id' => 'required|exists:siswa,id',
             'mata_pelajaran_id' => 'required|exists:mata_pelajaran,id',
-            'semester' => [
+            'semester_id' => [
                 'required',
-                new EnumRule(SemesterEnum::class)
+                'exists:semester,id'
             ],
             'jenis_nilai' => [
                 'required',

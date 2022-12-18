@@ -8,8 +8,10 @@ use App\Http\Controllers\GuruController;
 use App\Http\Controllers\JadwalMengajarController;
 use App\Http\Controllers\KonsultasiController;
 use App\Http\Controllers\KurikulumController;
+use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\NilaiController;
 use App\Http\Controllers\RaportController;
+use App\Http\Controllers\SemesterController;
 use App\Http\Controllers\SiswaController;
 use Illuminate\Support\Facades\Route;
 
@@ -56,9 +58,11 @@ Route::prefix('pengaturan')->group(function () {
 });
 
 Route::prefix('layanan')->group(function () {
+    Route::resource('semester', SemesterController::class)->middleware(['auth:admin']);
     Route::resource('guru', GuruController::class)->middleware(['auth:admin']);
     Route::resource('siswa', SiswaController::class)->middleware(['auth:admin']);
     Route::resource('absensi', AbsensiController::class)->middleware(['auth:admin,guru']);
+    Route::post('absensi/all', [AbsensiController::class, 'storeAll'])->middleware(['auth:admin,guru'])->name('absensi.all');
     Route::resource('nilai', NilaiController::class)->middleware(['auth:admin,guru']);
     Route::get('konsultasi', [KonsultasiController::class, 'index'])->middleware(['auth:guru,siswa'])->name('konsultasi.index');
     Route::get('konsultasi/tambah', [KonsultasiController::class, 'create'])->middleware(['auth:guru,siswa'])->name('konsultasi.create');
@@ -66,4 +70,11 @@ Route::prefix('layanan')->group(function () {
     Route::get('konsultasi/{id}/feedback', [KonsultasiController::class, 'feedback'])->middleware(['auth:guru,siswa'])->name('konsultasi.feedback');
     Route::post('konsultasi/{id}/feedback', [KonsultasiController::class, 'storeFeedback'])->middleware(['auth:guru,siswa'])->name('konsultasi.storeFeedback');
     Route::get('raport', [RaportController::class, 'index'])->middleware(['auth:admin,guru,siswa'])->name('raport.index');
+});
+
+Route::prefix('laporan')->group(function () {
+    Route::get('harian', [LaporanController::class, 'dailyReport'])->middleware(['auth:admin,guru']);
+    Route::get('mingguan', [LaporanController::class, 'weeklyReport'])->middleware(['auth:admin,guru']);
+    Route::get('bulanan', [LaporanController::class, 'monthlyReport'])->middleware(['auth:admin,guru']);
+    Route::get('semesteran', [LaporanController::class, 'semesterReport'])->middleware(['auth:admin,guru']);
 });

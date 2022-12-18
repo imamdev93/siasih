@@ -19,6 +19,16 @@ class Siswa extends Authenticatable
         return $this->belongsTo(Kelas::class);
     }
 
+    public function absensi()
+    {
+        return $this->hasMany(Absensi::class);
+    }
+
+    public function filterByMonth($month)
+    {
+        return $this->absensi()->whereMonth('tanggal', $month)->whereYear('tanggal', date('Y'));
+    }
+
     public function setPasswordAttribute($password)
     {
         if (!empty($password)) {

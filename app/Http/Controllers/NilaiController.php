@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\NilaiRequest;
 use App\Models\MataPelajaran;
 use App\Models\Nilai;
+use App\Models\Semester;
 use App\Models\Siswa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -38,6 +39,7 @@ class NilaiController extends Controller
     public function create()
     {
         $mapel = MataPelajaran::get();
+        $semester = Semester::latest()->get();
         $siswa = Siswa::query();
         if (session()->get('role') == 'guru') {
             $siswa->where('kelas_id', auth()->user()->kelas_id);
@@ -45,7 +47,7 @@ class NilaiController extends Controller
 
         $siswa = $siswa->get();
 
-        return view('nilai.tambah', compact('mapel', 'siswa'));
+        return view('nilai.tambah', compact('mapel', 'siswa', 'semester'));
     }
 
     /**
@@ -88,6 +90,7 @@ class NilaiController extends Controller
     {
         $mapel = MataPelajaran::get();
         $siswa = Siswa::query();
+        $semester = Semester::latest()->get();
 
         if (session()->get('role') == 'guru') {
             $siswa->where('kelas_id', auth()->user()->kelas_id);
@@ -95,7 +98,7 @@ class NilaiController extends Controller
 
         $siswa = $siswa->get();
 
-        return view('nilai.edit', compact('mapel', 'siswa', 'nilai'));
+        return view('nilai.edit', compact('mapel', 'siswa', 'nilai', 'semester'));
     }
 
     /**

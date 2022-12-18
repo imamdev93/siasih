@@ -38,11 +38,11 @@ class AbsensiController extends Controller
         $siswa = Siswa::query();
 
         if (session()->get('role') == 'guru') {
-            $siswa->where('kelas_id', auth()->user()->kelas_id);
+            $siswa->whereHas('absensi', function ($query) {
+                $query->whereDate('tanggal', date('Y-m-d'));
+            })->where('kelas_id', auth()->user()->kelas_id);
         }
-
-        $siswa = $siswa->get();
-
+        $siswa = Siswa::where('kelas_id', auth()->user()->kelas_id)->whereNotIn('id', $siswa->pluck('id')->toArray())->get();
         return view('absensi.tambah', compact('siswa'));
     }
 
@@ -58,7 +58,7 @@ class AbsensiController extends Controller
         try {
             Absensi::updateOrCreate($request->validated());
             DB::commit();
-            return redirect()->route('absensi.index')->with('success', 'Berhasil menyimpan data');
+            return redirect()->route('absensi.create')->with('success', 'Berhasil menyimpan data');
         } catch (\Exception $e) {
             DB::rollBack();
             return redirect()->back()->with('error', 'Gagal menyimpan data');
@@ -130,6 +130,31 @@ class AbsensiController extends Controller
         } catch (\Exception $e) {
             DB::rollBack();
             return redirect()->route('absensi.index')->with('error', 'Absensi gagal dihapus');
+        }
+    }
+
+    public function storeAll()
+    {
+        $exist = Siswa::whereHas('absensi', function ($query) {
+            $query->whereDate('tanggal', date('Y-m-d'));
+        })->where('kelas_id', auth()->user()->kelas_id)->pluck('id')->toArray();
+
+        $siswa = Siswa::whereNotIn('id', $exist)->where('kelas_id', auth()->user()->kelas_id)->get();
+
+
+        try {
+            foreach ($siswa as $data) {
+                Absensi::create([
+                    'siswa_id' => $data->id,
+                    'tanggal' => date('Y-m-d'),
+                    'keterangan' => 'masuk',
+                ]);
+            }
+            DB::commit();
+            return redirect()->route('absensi.index')->with('success', 'Absensi berhasil ditambahkan');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->route('absensi.index')->with('error', 'Absensi gagal ditambahkan');
         }
     }
 }
