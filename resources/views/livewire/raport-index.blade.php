@@ -15,23 +15,24 @@
             <div class="col-md-3">
                 <select wire:model="semester" class="form-control">
                     <option value="">Pilih Semester</option>
-                    <option value="GANJIL">GANJIL</option>
-                    <option value="GENAP">GENAP</option>
-                </select>
-            </div>
-            @if(session()->get('role') != 'siswa')
-            <div class="col-md-3">
-                <select wire:model="siswaId" class="form-control">
-                    <option value="">Pilih Siswa</option>
-                    @foreach ($siswa as $data)
-                        <option value="{{ $data->id }}">{{ $data->nama }}</option>
+                    @foreach ($semesters as $data)
+                        <option value="{{ $data->id }}">{{ $data->judul }}</option>
                     @endforeach
                 </select>
             </div>
-        @endif
+            @if (session()->get('role') != 'siswa')
+                <div class="col-md-3">
+                    <select wire:model="siswaId" class="form-control">
+                        <option value="">Pilih Siswa</option>
+                        @foreach ($siswa as $data)
+                            <option value="{{ $data->id }}">{{ $data->nama }}</option>
+                        @endforeach
+                    </select>
+                </div>
+            @endif
         </div>
         <div class="row justify-content-between mb-3">
-            <div class="col-md-1" >
+            <div class="col-md-1">
                 <select class="form-control" wire:model="perPage">
                     <option value="10">10</option>
                     <option value="25">25</option>
@@ -57,26 +58,27 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @if(count($raport) > 0)
+                    @if (count($raport) > 0)
                         @php
                             $no = 1;
                         @endphp
                         @foreach ($raport as $data)
-                        <tr>
-                            <td>{{ $no++ }}</td>
-                            <td>{{ $data->siswa->nisn ?? '-' }}</td>
-                            <td>{{ $data->siswa->nama ?? '-' }}</td>
-                            <td>{{ $data->siswa->kelas->romawi ?? '-' }} ({{ $data->siswa->kelas->nama ?? '-' }})</td>
-                            <td>{{ $data->mapel->nama ?? '-' }}</td>
-                            <td>{{ $data->nilai ?? '-' }}</td>
-                            <td>{{ $data->semester ?? '-' }}</td>
-                        </tr>
+                            <tr>
+                                <td>{{ $no++ }}</td>
+                                <td>{{ $data->siswa->nisn ?? '-' }}</td>
+                                <td>{{ $data->siswa->nama ?? '-' }}</td>
+                                <td>{{ $data->siswa->kelas->romawi ?? '-' }} ({{ $data->siswa->kelas->nama ?? '-' }})
+                                </td>
+                                <td>{{ $data->mapel->nama ?? '-' }}</td>
+                                <td>{{ $data->nilai ?? '-' }}</td>
+                                <td>{{ $data->semester ?? '-' }}</td>
+                            </tr>
                         @endforeach
-                        @else
+                    @else
                         <tr>
                             <td colspan="7" class="text-center">Data tidak ditemukan</td>
                         </tr>
-                        @endif
+                    @endif
                 </tbody>
             </table>
             {{ $raport->links() }}

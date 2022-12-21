@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use App\Models\Guru;
 use App\Models\MataPelajaran;
 use App\Models\Nilai;
+use App\Models\Semester;
 use App\Models\Siswa;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -23,7 +24,7 @@ class RaportIndex extends Component
     public function getRaportProperty()
     {
         $query = Nilai::when($this->semester, function ($query) {
-            $query->where('semester', $this->semester);
+            $query->where('semester_id', $this->semester);
         })->when($this->search, function ($query) {
             $query->whereHas('siswa', function ($query) {
                 $query->where('nama', 'like', '%' . $this->search . '%')
@@ -64,9 +65,9 @@ class RaportIndex extends Component
         $siswaId = $this->siswaId ?? auth()->user()->id;
         $data['siswa'] = Siswa::find($siswaId);
         $data['waliKelas'] = Guru::where('kelas_id', $data['siswa']->id)->first();
-        $data['semester'] = $this->semester;
+        $data['semester'] = Semester::where('id', $this->semester)->first()->judul ?? Semester::latest()->first()->judul;
         $data['raport'] = MataPelajaran::with(['nilai' => function ($query) use ($siswaId) {
-            $query->where('semester', $this->semester)
+            $query->where('semester_id', $this->semester)
                 ->where('siswa_id', $siswaId);
         }])->get();
         $pdf = PDF::loadView('template.raport', $data)->setPaper('folio', 'potrait')->output();
@@ -80,7 +81,8 @@ class RaportIndex extends Component
     {
         return view('livewire.raport-index', [
             'raport' => $this->raport,
-            'siswa' => $this->siswa
+            'siswa' => $this->siswa,
+            'semesters' => Semester::latest()->get()
         ]);
     }
 }
