@@ -30,7 +30,6 @@ class JadwalRequest extends FormRequest
             'mata_pelajaran_id' => 'required|exists:mata_pelajaran,id',
             'hari' => [
                 'required',
-                new EnumRule(HariEnum::class)
             ],
         ];
     }

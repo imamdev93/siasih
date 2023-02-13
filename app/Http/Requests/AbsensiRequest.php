@@ -29,8 +29,7 @@ class AbsensiRequest extends FormRequest
             'siswa_id' => 'required|exists:siswa,id',
             'tanggal' => 'required|date',
             'keterangan' => [
-                'required',
-                new EnumRule(KeteranganEnum::class)
+                'required'
             ],
         ];
     }

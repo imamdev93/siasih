@@ -34,8 +34,7 @@ class NilaiRequest extends FormRequest
                 'exists:semester,id'
             ],
             'jenis_nilai' => [
-                'required',
-                new EnumRule(JenisNilaiEnum::class)
+                'required'
             ],
             'nilai' => 'required|numeric|min:0|max:100'
         ];
