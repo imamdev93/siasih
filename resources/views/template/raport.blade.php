@@ -18,7 +18,6 @@
         .font-text {
             font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
         }
-
     </style>
 </head>
 
@@ -73,41 +72,41 @@
         </thead>
         <tbody>
             @php
-            $no=1;
-            $total = 0;
-            $pembagi = 0;
+                $no = 1;
+                $total = 0;
+                $pembagi = 0;
             @endphp
             @foreach ($raport as $data)
-            @php
-            $total += $data->nilai[0]->nilai ?? 0;
-            $pembagi += count($data->nilai) > 0 ? 1 : 0;
-            @endphp
-            <tr>
-                <td class="tengah">{{ $no++ }}</td>
-                <td>{{ $data->nama }}</td>
-                <td class="tengah">70</td>
-                <td class="tengah">{{ $data->nilai[0]->nilai ?? '-' }}</td>
-                <td class="tengah">
-                    {{ count($data->nilai) > 0 ? ucwords(\Terbilang::make($data->nilai[0]->nilai)) : '-' }}</td>
-                <td>-</td>
-            </tr>
+                @php
+                    $total += $data->nilai[0]->nilai ?? 0;
+                    $pembagi += count($data->nilai) > 0 ? 1 : 0;
+                @endphp
+                <tr>
+                    <td class="tengah">{{ $no++ }}</td>
+                    <td>{{ $data->nama }}</td>
+                    <td class="tengah">70</td>
+                    <td class="tengah">{{ $data->nilai[0]->nilai ?? '-' }}</td>
+                    <td class="tengah">
+                        {{ count($data->nilai) > 0 ? ucwords(\Terbilang::make($data->nilai[0]->nilai)) : '-' }}</td>
+                    <td>-</td>
+                </tr>
             @endforeach
             <tr>
                 <td colspan="3" class="tengah"><b>Jumlah</b></td>
                 <td class="tengah"><b>{{ $total }}</b></td>
-                <td class="tengah"><b>{{ ucwords(\Terbilang::make($total)) }}</b></td>
+                <td class="tengah"><b>{{ $total > 0 ? ucwords(\Terbilang::make($total)) : 0 }}</b></td>
                 <td></td>
             </tr>
             <tr>
                 <td colspan="3" class="tengah"><b>Rata-rata</b></td>
-                <td class="tengah"><b>{{ $total / $pembagi }}</b></td>
-                <td class="tengah"><b>{{ ucwords(\Terbilang::make($total/$pembagi)) }}</b></td>
+                <td class="tengah"><b>{{ $total > 0 ? $total / $pembagi : 0 }}</b></td>
+                <td class="tengah"><b>{{ $total > 0 ? ucwords(\Terbilang::make($total / $pembagi)) : 0 }}</b></td>
                 <td></td>
             </tr>
         </tbody>
     </table>
     <br>
-    {{-- <table width="50%" border="1" cellspacing="0" style="table-layout:fixed;font-size: 10pt"> 
+    {{-- <table width="50%" border="1" cellspacing="0" style="table-layout:fixed;font-size: 10pt">
         <tr>
             <th colspan="2" class="center">Ketidakhadiran</th>
         </tr>
