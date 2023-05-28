@@ -110,6 +110,7 @@
                     </div>
                 </div>
             </div>
+           @livewire('absensi-index')
         </div>
     </div>
 </div>
