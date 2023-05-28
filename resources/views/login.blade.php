@@ -13,7 +13,14 @@
 
     <link href="{{asset('css/animate.css')}}" rel="stylesheet">
     <link href="{{asset('css/style.css')}}" rel="stylesheet">
-
+    <style>
+        body {
+            background-image: url('../background.png');
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover;
+        }
+    </style>
 </head>
 
 <body class="gray-bg">
@@ -24,7 +31,7 @@
             <div>
                 <h1 class="logo-name">SD</h1>
             </div>
-            <h3>Sistem Informasi Akademik SD Sri Asih</h3>
+            <h3 style="color:white">Sistem Informasi Akademik SD Sri Asih</h3>
             {{-- <p>Perfectly designed and precisely prepared admin theme with over 50 pages with extra new web app views.
                 <!--Continually expanded and constantly improved Inspinia Admin Them (IN+)-->
             </p> --}}
