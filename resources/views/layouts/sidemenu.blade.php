@@ -72,7 +72,7 @@
                     <li class="{{ request()->is('layanan/raport*') ? 'active' : '' }}"><a href="/layanan/raport">Raport
                             Siswa</a></li>
                 @endif
-                @if (session()->get('role') == 'admin' && !auth()->user()->is_kepsek)
+                @if (session()->get('role') == 'admin')
                     <li class="{{ request()->is('layanan/guru*') ? 'active' : '' }}"><a href="/layanan/guru">Data
                             Guru</a></li>
                     <li class="{{ request()->is('layanan/siswa*') ? 'active' : '' }}"><a href="/layanan/siswa">Data
