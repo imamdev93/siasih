@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Requests\SiswaStoreRequest;
 use App\Http\Requests\SiswaUpdateRequest;
 use App\Models\Kelas;
+use App\Models\MataPelajaran;
+use App\Models\Nilai;
+use App\Models\Semester;
 use App\Models\Siswa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -104,5 +107,24 @@ class SiswaController extends Controller
     public function destroy(Siswa $siswa)
     {
         //
+    }
+
+    public function grafik()
+    {
+        $semester = Semester::where('tanggal_mulai', '<=', date('Y-m-d'))->where('tanggal_selesai', '>=', date('Y-m-d'))->first();
+        $jenis = ['UTS', 'UAS'];
+        $mapel = MataPelajaran::get();
+        $values = [];
+        foreach ($mapel as $mpl) {
+            foreach ($jenis as $key  => $value) {
+                $siswa[$key] = Nilai::where('mata_pelajaran_id', $mpl->id)->where('semester_id', $semester?->id)->where('jenis_nilai', $value)->first()?->nilai;
+            }
+            array_push($values, array('name' => $mpl->nama, 'data' => $siswa));
+        }
+
+        $data['labels'] = $jenis;
+        $data['values'] = $values;
+
+        return view('grafik', $data);
     }
 }
