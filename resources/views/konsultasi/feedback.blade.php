@@ -2,11 +2,11 @@
 @section('content')
 <div class="row">
     <div class="col-lg-12">
-        <form action="{{ route('konsultasi.storeFeedback', $konsultasi->id) }} " method="POST">
+        <form action="{{ $jenis=='akademik' ? route('konsultasi.storeFeedback', $konsultasi->id) : route('konsultasi.nonAkademik.storeFeedback', $konsultasi->id) }} " method="POST">
             @csrf
             <div class="ibox ">
                 <div class="ibox-title">
-                    <h5>Feedback Konsultasi Siswa</h5>
+                    <h5>Feedback Konsultasi {{ucwords($jenis)}} Siswa</h5>
                     <div class="ibox-tools">
                         <a class="collapse-link">
                             <i class="fa fa-chevron-up"></i>

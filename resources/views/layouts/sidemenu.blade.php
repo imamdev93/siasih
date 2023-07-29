@@ -83,16 +83,22 @@
                             Siswa</a></li>
                     <li class="{{ request()->is('layanan/nilai*') ? 'active' : '' }}"><a href="/layanan/nilai">Nilai
                             Siswa</a></li>
-                    <li class="{{ request()->is('layanan/konsultasi*') ? 'active' : '' }}"><a
-                            href="/layanan/konsultasi">konsultasi Siswa</a></li>
+                    <li class="{{ request()->is('layanan/konsultasi/akademik*') ? 'active' : '' }}"><a
+                            href="/layanan/konsultasi/akademik">konsultasi Akademik</a></li>
+                    <li class="{{ request()->is('layanan/konsultasi/non-akademik*') ? 'active' : '' }}"><a
+                        href="/layanan/konsultasi/non-akademik">konsultasi Non Akademik</a></li>
                     <li class="{{ request()->is('layanan/raport*') ? 'active' : '' }}"><a href="/layanan/raport">Raport</a>
                     </li>
                 @endauth
                 @auth('siswa')
                     <li class="{{ request()->is('layanan/raport*') ? 'active' : '' }}"><a href="/layanan/raport">Raport</a>
                     </li>
-                    <li class="{{ request()->is('layanan/konsultasi*') ? 'active' : '' }}"><a
-                            href="/layanan/konsultasi">konsultasi</a></li>
+                    <li class="{{ request()->is('layanan/grafik*') ? 'active' : '' }}"><a href="/layanan/grafik">Grafik Nilai</a>
+                    </li>
+                    <li class="{{ request()->is('layanan/konsultasi/akademik*') ? 'active' : '' }}"><a
+                        href="/layanan/konsultasi/akademik">konsultasi Akademik</a></li>
+                    <li class="{{ request()->is('layanan/konsultasi/non-akademik*') ? 'active' : '' }}"><a
+                        href="/layanan/konsultasi/non-akademik">konsultasi Non Akademik</a></li>
                 @endauth
             </ul>
         </li>

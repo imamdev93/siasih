@@ -13,6 +13,7 @@ use App\Http\Controllers\NilaiController;
 use App\Http\Controllers\RaportController;
 use App\Http\Controllers\SemesterController;
 use App\Http\Controllers\SiswaController;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -64,12 +65,20 @@ Route::prefix('layanan')->group(function () {
     Route::resource('absensi', AbsensiController::class)->middleware(['auth:admin,guru']);
     Route::post('absensi/all', [AbsensiController::class, 'storeAll'])->middleware(['auth:admin,guru'])->name('absensi.all');
     Route::resource('nilai', NilaiController::class)->middleware(['auth:admin,guru']);
-    Route::get('konsultasi', [KonsultasiController::class, 'index'])->middleware(['auth:guru,siswa'])->name('konsultasi.index');
-    Route::get('konsultasi/tambah', [KonsultasiController::class, 'create'])->middleware(['auth:guru,siswa'])->name('konsultasi.create');
-    Route::post('konsultasi/tambah', [KonsultasiController::class, 'store'])->middleware(['auth:guru,siswa'])->name('konsultasi.store');
+    Route::get('konsultasi/akademik', [KonsultasiController::class, 'index'])->middleware(['auth:guru,siswa'])->name('konsultasi.index');
+    Route::get('konsultasi/akademik/tambah', [KonsultasiController::class, 'create'])->middleware(['auth:guru,siswa'])->name('konsultasi.create');
+    Route::post('konsultasi/akademik/tambah', [KonsultasiController::class, 'store'])->middleware(['auth:guru,siswa'])->name('konsultasi.store');
     Route::get('konsultasi/{id}/feedback', [KonsultasiController::class, 'feedback'])->middleware(['auth:guru,siswa'])->name('konsultasi.feedback');
     Route::post('konsultasi/{id}/feedback', [KonsultasiController::class, 'storeFeedback'])->middleware(['auth:guru,siswa'])->name('konsultasi.storeFeedback');
+
+    Route::get('konsultasi/non-akademik', [KonsultasiController::class, 'indexNonAkademik'])->middleware(['auth:guru,siswa'])->name('konsultasi.nonAkademik.index');
+    Route::get('konsultasi/non-akademik/tambah', [KonsultasiController::class, 'createNonAkademik'])->middleware(['auth:guru,siswa'])->name('konsultasi.nonAkademik.create');
+    Route::post('konsultasi/non-akademik/tambah', [KonsultasiController::class, 'storeNonAkademik'])->middleware(['auth:guru,siswa'])->name('konsultasi.nonAkademik.store');
+    Route::get('konsultasi/{id}/non-akademik/feedback', [KonsultasiController::class, 'feedbackNonAkademik'])->middleware(['auth:guru,siswa'])->name('konsultasi.nonAkademik.feedback');
+    Route::post('konsultasi/{id}/non-akademik/feedback', [KonsultasiController::class, 'storeFeedbackNonAkademik'])->middleware(['auth:guru,siswa'])->name('konsultasi.nonAkademik.storeFeedback');
+
     Route::get('raport', [RaportController::class, 'index'])->middleware(['auth:admin,guru,siswa'])->name('raport.index');
+    Route::get('grafik', [SiswaController::class, 'grafik'])->middleware(['auth:admin,guru,siswa'])->name('grafik.index');
 });
 
 Route::prefix('laporan')->group(function () {
@@ -77,4 +86,9 @@ Route::prefix('laporan')->group(function () {
     Route::get('mingguan', [LaporanController::class, 'weeklyReport'])->middleware(['auth:admin,guru']);
     Route::get('bulanan', [LaporanController::class, 'monthlyReport'])->middleware(['auth:admin,guru']);
     Route::get('semesteran', [LaporanController::class, 'semesterReport'])->middleware(['auth:admin,guru']);
+});
+
+Route::get('run:migration', function () {
+    Artisan::call('migrate');
+    return 'run migration successfully';
 });

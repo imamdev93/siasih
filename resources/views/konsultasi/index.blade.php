@@ -8,10 +8,10 @@
     <div class="col-lg-12">
         <div class="ibox ">
             <div class="ibox-title">
-                <h5>Daftar Konsultasi Siswa</h5>
+                <h5>Daftar Konsultasi {{ucwords($jenis)}} Siswa</h5>
                 @if (session()->get('role') == 'siswa')
                     <div class="ibox-tools">
-                        <a href="{{ route('konsultasi.create') }}" class="btn btn-primary btn-sm">Tambah</a>
+                        <a href="{{ $jenis=='akademik' ? route('konsultasi.create') : route('konsultasi.nonAkademik.create') }}" class="btn btn-primary btn-sm">Tambah</a>
                     </div>
                 @endif
 
