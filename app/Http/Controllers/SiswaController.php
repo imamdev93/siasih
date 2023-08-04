@@ -117,7 +117,7 @@ class SiswaController extends Controller
         $values = [];
         foreach ($mapel as $mpl) {
             foreach ($jenis as $key  => $value) {
-                $siswa[$key] = Nilai::where('mata_pelajaran_id', $mpl->id)->where('semester_id', $semester?->id)->where('jenis_nilai', $value)->first()?->nilai;
+                $siswa[$key] = Nilai::where('siswa_id', auth()->user()->id)->where('mata_pelajaran_id', $mpl->id)->where('semester_id', $semester?->id)->where('jenis_nilai', $value)->first()?->nilai;
             }
             array_push($values, array('name' => $mpl->nama, 'data' => $siswa));
         }
