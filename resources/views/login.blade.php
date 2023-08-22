@@ -15,7 +15,7 @@
     <link href="{{asset('css/style.css')}}" rel="stylesheet">
     <style>
         body {
-            background-image: url('../background.png');
+            background-image: url('../background-2.webp');
             background-repeat: no-repeat;
             background-attachment: fixed;
             background-size: cover;

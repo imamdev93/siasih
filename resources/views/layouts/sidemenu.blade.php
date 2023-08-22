@@ -69,10 +69,14 @@
                 @if (session()->get('role') == 'admin' && auth()->user()->is_kepsek)
                     <li class="{{ request()->is('layanan/absensi*') ? 'active' : '' }}"><a
                             href="/layanan/absensi">Absensi Siswa</a></li>
+                    <li class="{{ request()->is('layanan/nilai*') ? 'active' : '' }}"><a href="/layanan/nilai">Data Nilai
+                                Siswa</a></li>
                     <li class="{{ request()->is('layanan/raport*') ? 'active' : '' }}"><a href="/layanan/raport">Raport
                             Siswa</a></li>
                 @endif
                 @if (session()->get('role') == 'admin')
+                    <li class="{{ request()->is('layanan/nilai*') ? 'active' : '' }}"><a href="/layanan/nilai">Data Nilai
+                        Siswa</a></li>
                     <li class="{{ request()->is('layanan/guru*') ? 'active' : '' }}"><a href="/layanan/guru">Data
                             Guru</a></li>
                     <li class="{{ request()->is('layanan/siswa*') ? 'active' : '' }}"><a href="/layanan/siswa">Data
@@ -121,6 +125,18 @@
                 </ul>
             </li>
         @endif
+        <li class="{{ request()->is('arsip/*') ? 'active' : '' }}">
+            <a href="#"><span class="nav-label">Data Arsip
+                </span></a>
+            <ul class="nav nav-second-level collapse">
+                <li class="{{ request()->is('arsip/absensi*') ? 'active' : '' }}"><a
+                        href="/arsip/absensi">Absensi</a>
+                </li>
+                <li class="{{ request()->is('arsip/nilai*') ? 'active' : '' }}"><a
+                        href="/arsip/nilai">Nilai</a>
+                </li>
+            </ul>
+        </li>
         <li>
             <a href="{{ route('logout') }}"><span class="nav-label">Keluar</span></a>
         </li>

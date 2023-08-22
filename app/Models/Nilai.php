@@ -21,4 +21,9 @@ class Nilai extends Model
     {
         return $this->belongsTo(MataPelajaran::class, 'mata_pelajaran_id', 'id');
     }
+
+    public function semester()
+    {
+        return $this->belongsTo(Semester::class);
+    }
 }

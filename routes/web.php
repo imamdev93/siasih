@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AbsensiController;
+use App\Http\Controllers\ArsipController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BerandaController;
 use App\Http\Controllers\BiodataController;
@@ -86,6 +87,11 @@ Route::prefix('laporan')->group(function () {
     Route::get('mingguan', [LaporanController::class, 'weeklyReport'])->middleware(['auth:admin,guru']);
     Route::get('bulanan', [LaporanController::class, 'monthlyReport'])->middleware(['auth:admin,guru']);
     Route::get('semesteran', [LaporanController::class, 'semesterReport'])->middleware(['auth:admin,guru']);
+});
+
+Route::prefix('arsip')->middleware(['auth:admin,guru,siswa'])->group(function () {
+    Route::get('absensi', [ArsipController::class, 'absensi']);
+    Route::get('nilai', [ArsipController::class, 'nilai']);
 });
 
 Route::get('run:migration', function () {

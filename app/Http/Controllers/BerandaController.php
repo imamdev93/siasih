@@ -15,6 +15,8 @@ class BerandaController extends Controller
 
         $kelas = Kelas::get();
         $values = [];
+        $siswa = [];
+        
         foreach ($kelas as $kls) {
             foreach ($tahun as $key  => $thn) {
                 $siswa[$key] = Siswa::whereYear('created_at', $thn)->where('kelas_id', $kls->id)->count();
