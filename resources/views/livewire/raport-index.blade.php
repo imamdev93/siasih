@@ -71,7 +71,7 @@
                                 </td>
                                 <td>{{ $data->mapel->nama ?? '-' }}</td>
                                 <td>{{ $data->nilai ?? '-' }}</td>
-                                <td>{{ $data->semester ?? '-' }}</td>
+                                <td>{{ $data->semester->judul ?? '-' }}</td>
                             </tr>
                         @endforeach
                     @else
